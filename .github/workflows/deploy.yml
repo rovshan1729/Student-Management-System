@@ -19,4 +19,5 @@ jobs:
           script: >
             cd ${{ secrets.PROJECT_PATH }} 
             && git pull 
-            && gunicorn --bind 0.0.0.0:8001 mysite.wsgi:application        
+            && python manage.py runserver 0.0.0.0:8082
+        
