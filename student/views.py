@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Student
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -38,3 +38,12 @@ def add(request):
     else:
         form = StudentForm()
     return render(request,'students/add.html',{'form':form})
+
+def delete_student(request, id):
+    student = get_object_or_404(Student, pk=id)
+
+    if request.method == 'POST':
+        student.delete()
+        return redirect('index')
+
+    return render(request, 'students/index.html', {'student': student})
